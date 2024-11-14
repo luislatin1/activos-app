@@ -1,13 +1,17 @@
-// App.js
-import React from 'react';
-import Dashboard from './modules/Dashboard/Dashboard';
+const express = require('express');
+const path = require('path');
+const app = express();
+const PORT = 3000; // Cambia el puerto si es necesario
 
-function App() {
-  return (
-    <div>
-      <Dashboard />
-    </div>
-  );
-}
+// Servir archivos estáticos desde la carpeta "public"
+app.use(express.static(path.join(__dirname, 'public')));
 
-export default App;
+// Ruta para acceder al Dashboard
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public', 'dashboard.html'));
+});
+
+// Inicia el servidor
+app.listen(PORT, () => {
+    console.log(`Servidor corriendo en http://localhost:${PORT}`);
+});
